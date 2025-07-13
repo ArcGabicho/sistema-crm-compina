@@ -36,6 +36,7 @@ Desarrollado con **Next.js** y **Firebase**, este sistema permite a los asesores
 
 ## 🏗️ Estructura del proyecto
 
+```
 /sistema-crm-compina
 ├── /components # Componentes reutilizables de UI
 ├── /pages # Rutas Next.js (auth, dashboard, etc.)
@@ -44,7 +45,7 @@ Desarrollado con **Next.js** y **Firebase**, este sistema permite a los asesores
 ├── /styles # Archivos Tailwind
 ├── /public # Assets (logos, íconos)
 └── /types # Tipos TypeScript
-
+```
 
 ---
 
