@@ -1,41 +1,46 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
-import { app } from "../utils/firebase"
-import { LoaderCircle } from "lucide-react"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "../utils/firebase";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
+import { LoaderCircle } from "lucide-react";
 
 export default function Form() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [error, setError] = useState("")
-    const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter()
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setError("")
-        setIsLoading(true)
-        const auth = getAuth(app)
+        e.preventDefault();
+        setIsLoading(true);
+
         try {
-            await signInWithEmailAndPassword(auth, email, password)
-            router.push("/dashboard")
+            const auth = getAuth(app);
+            const user = await signInWithEmailAndPassword(auth, email, password);
+            const token = await user.user.getIdToken();
+
+            await fetch("/api/set-session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token }),
+        });
+
+            toast.success("Inicio de sesión exitoso");
+            router.push("/dashboard");
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err: unknown) {
-            setError("Credenciales incorrectas")
+            toast.error("Credenciales inválidas");
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
         }
-    }
+    };
 
     return (
-        <form
-            className="bg-white shadow-lg rounded-xl px-10 py-8 flex flex-col gap-6 min-w-[340px] max-w-[400px]"
-            autoComplete="off"
-            onSubmit={handleSubmit}
-        >
+        <form className="bg-white shadow-lg rounded-xl px-10 py-8 flex flex-col gap-6 min-w-[340px] max-w-[400px]" autoComplete="off" onSubmit={handleSubmit}>
             <div className="flex justify-center mb-2">
                 <Image
                     src={"/images/Compipro_Logo.webp"}
@@ -46,9 +51,9 @@ export default function Form() {
                 />
             </div>
             <h1 className="text-2xl font-bold text-center text-gray-800">¡Bienvenido!</h1>
-            <span className="text-center text-gray-500 text-sm">
-                Ingrese sus credenciales para acceder al sistema CRM de Compina S.A.C.
-            </span>
+                <span className="text-center text-gray-500 text-sm">
+                    Ingrese sus credenciales para acceder al sistema CRM de Compina S.A.C.
+                </span>
             <div className="flex flex-col gap-1">
                 <label htmlFor="email" className="text-gray-700 font-medium">
                     Correo Electrónico
@@ -77,7 +82,6 @@ export default function Form() {
                     onChange={e => setPassword(e.target.value)}
                 />
             </div>
-            {error && <div className="text-red-500 text-sm text-center">{error}</div>}
             <button
                 type="submit"
                 disabled={isLoading}

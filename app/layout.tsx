@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { Poppins } from "next/font/google";
 import Head from "next/head";
 import "./globals.css";
@@ -35,6 +36,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </Head>
         <body>
           {children}
+           <Toaster position="top-right" />
         </body>
       </html>
     </>

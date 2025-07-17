@@ -3,6 +3,7 @@
 import { getAuth, signOut } from "firebase/auth"
 import { app } from "../utils/firebase"
 import { useRouter } from "next/navigation"
+import { toast } from "react-hot-toast";
 
 import { House } from 'lucide-react';
 import { Users } from 'lucide-react';
@@ -34,11 +35,18 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelectModulo }) => {
     };
 
     const handleLogout = async () => {
-        setIsLoggingOut(true);
-        const auth = getAuth(app);
-        await signOut(auth);
-        setIsLoggingOut(false);
-        router.push("/");
+        try {
+            await fetch("/api/logout", { method: "POST" });
+            // Opcional: puedes limpiar Firebase Auth localmente también si quieres
+            const auth = getAuth(app);
+            await signOut(auth);
+            router.push("/"); // Redirige a la pantalla de login protegida
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            toast.error("Error al cerrar sesión", error);
+        } finally {
+            setIsLoggingOut(false);
+        }
     };
 
     return (
