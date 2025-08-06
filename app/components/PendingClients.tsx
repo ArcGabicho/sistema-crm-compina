@@ -65,27 +65,42 @@ export default function PendingClients() {
   }, []);
 
   return (
-    <div className="overflow-x-auto">
-      <h2 className="text-xl font-bold mb-4">Clientes Pendientes</h2>
+    <div className="bg-white rounded-xl shadow-lg px-8 py-6 min-w-[340px] border border-gray-100">
+      <h2 className="text-lg font-semibold mb-4 text-gray-700">Clientes Pendientes</h2>
       {clients.length === 0 ? (
-        <p>No hay clientes pendientes.</p>
+        <p className="text-gray-500">No hay clientes pendientes.</p>
       ) : (
-        <table className="min-w-full border border-gray-300">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border px-4 py-2">Empresa</th>
-              <th className="border px-4 py-2">Teléfono</th>
-            </tr>
-          </thead>
-          <tbody>
-            {clients.map(client => (
-              <tr key={client.id} className="text-center">
-                <td className="border px-4 py-2">{client.empresa || "—"}</td>
-                <td className="border px-4 py-2">{client.telefono || "—"}</td>
+        <div className="overflow-x-auto">
+          <table className="min-w-full rounded-lg border-separate border-spacing-0">
+            <thead className="bg-gray-50 sticky top-0 z-10">
+              <tr>
+                <th className="px-5 py-3 text-left text-gray-700 font-bold uppercase tracking-wider border-b border-gray-200">
+                  Empresa
+                </th>
+                <th className="px-5 py-3 text-left text-gray-700 font-bold uppercase tracking-wider border-b border-gray-200">
+                  Teléfono
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {clients.map((client, idx) => (
+                <tr
+                  key={client.id}
+                  className={`transition-colors ${
+                    idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  } hover:bg-blue-50`}
+                >
+                  <td className="px-5 py-3 border-b border-gray-100 text-gray-900 whitespace-nowrap font-medium">
+                    {client.empresa || "—"}
+                  </td>
+                  <td className="px-5 py-3 border-b border-gray-100 text-gray-900 whitespace-nowrap">
+                    {client.telefono || "—"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

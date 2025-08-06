@@ -14,39 +14,66 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 export default function Home() {
     const [totalClients, setTotalClients] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [cotizados, setCotizados] = useState(0);
+    const [pendientes, setPendientes] = useState(0);
+    const [probables, setProbables] = useState(0);
+
 
     useEffect(() => {
-        const fetchTotalClients = async () => {
-        const cached = localStorage.getItem("totalClientsCache");
-        if (cached) {
-            const { value, timestamp } = JSON.parse(cached);
-            const now = Date.now();
-            // Si fue guardado hace menos de 24 horas, usa el valor cacheado
-            if (now - timestamp < 24 * 60 * 60 * 1000) {
-                setTotalClients(value);
-                setLoading(false);
-                return;
+        const fetchClientStats = async () => {
+            const cached = localStorage.getItem("clientStatsCache");
+            if (cached) {
+                const { value, timestamp } = JSON.parse(cached);
+                const now = Date.now();
+                if (now - timestamp < 24 * 60 * 60 * 1000) {
+                    setTotalClients(value.total);
+                    setCotizados(value.cotizados);
+                    setPendientes(value.pendientes);
+                    setProbables(value.probables);
+                    setLoading(false);
+                    return;
+                }
             }
-        }
-        // Si no hay cache o ya pasó un día, consulta Firestore
-        const db = getFirestore(app);
-        const snapshot = await getDocs(collection(db, "clientes"));
-        setTotalClients(snapshot.size);
-        setLoading(false);
-        localStorage.setItem(
-            "totalClientsCache",
-            JSON.stringify({ value: snapshot.size, timestamp: Date.now() })
-        );
-    };
-    fetchTotalClients();
-    }, []);
 
+            const db = getFirestore(app);
+            const snapshot = await getDocs(collection(db, "clientes"));
+            let total = 0;
+            let cotizados = 0;
+            let pendientes = 0;
+            let probables = 0;
+
+            snapshot.forEach(doc => {
+                total++;
+                const etapa = doc.data().etapa;
+                if (etapa === "Cotizado") cotizados++;
+                else if (etapa === "Contacto Inicial-1") pendientes++;
+                else if (etapa === "Pendientes por Cotizar") probables++;
+            });
+
+            setTotalClients(total);
+            setCotizados(cotizados);
+            setPendientes(pendientes);
+            setProbables(probables);
+            setLoading(false);
+
+            localStorage.setItem(
+                "clientStatsCache",
+                JSON.stringify({
+                    value: { total, cotizados, pendientes, probables },
+                    timestamp: Date.now()
+                })
+            );
+        };
+        fetchClientStats();
+    }, []);
+    
     const stats = [
         { icon: <UsersRound />, title: "Clientes totales", value: totalClients, loading },
-        { icon: <UserRoundCheck />, title: "Clientes Cotizados", value: 1000, loading: false },
-        { icon: <UserPen />, title: "Clientes Pendientes", value: 2000, loading: false },
-        { icon: <UserRoundPlus />, title: "Clientes Probables", value: 3000, loading: false },
+        { icon: <UserRoundCheck />, title: "Clientes Cotizados", value: cotizados, loading },
+        { icon: <UserPen />, title: "Clientes Pendientes", value: pendientes, loading },
+        { icon: <UserRoundPlus />, title: "Clientes Probables", value: probables, loading },
     ];
+
 
     const chartData = {
         labels: stats.map(item => item.title),
