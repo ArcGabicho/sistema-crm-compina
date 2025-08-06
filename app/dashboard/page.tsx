@@ -5,6 +5,9 @@ import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Inicio from "../components/Home";
 import Clientes from "../components/Clients";
+import Data from "../components/Data";
+import Reports from "../components/Reports";
+import RPA from "../components/RPA";
 import Autor from "../components/Author";
 
 export default function DashboardPage() {
@@ -16,6 +19,12 @@ export default function DashboardPage() {
                 return <Inicio />;
             case "clientes":
                 return <Clientes />;
+            case "data":
+                return <Data />;
+            case "reportes":
+                return <Reports />;
+            case "automatizacion":
+                return <RPA />;
             case "autor":
                 return <Autor />;
             default:

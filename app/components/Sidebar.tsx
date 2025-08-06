@@ -7,6 +7,9 @@ import { toast } from "react-hot-toast";
 
 import { House } from 'lucide-react';
 import { Users } from 'lucide-react';
+import { ChartLine } from 'lucide-react';
+import { ClipboardMinus } from 'lucide-react';
+import { Bot } from 'lucide-react';
 import { Info } from 'lucide-react';
 import { LogOut } from 'lucide-react';
 import { LoaderCircle } from "lucide-react";
@@ -21,6 +24,9 @@ type SidebarProps = {
 const navItems = [
     { key: "inicio", icon: <House />, label: "Inicio" },
     { key: "clientes", icon: <Users />, label: "Clientes" },
+    { key: "data", icon: <ChartLine />, label: "Datos"},
+    { key: "reportes", icon: <ClipboardMinus />, label: "Reportes" },
+    { key: "automatizacion", icon: <Bot />, label: "Automatización" },
     { key: "autor", icon: <Info />, label: "Autor" },
 ];
 
