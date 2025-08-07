@@ -9,8 +9,14 @@ import { Trash2 } from "lucide-react";
 const db = getFirestore(app);
 const storage = getStorage(app);
 
+type Cliente = {
+    id: string;
+    nombre?: string;
+    // Agrega aquí otros campos que tenga un cliente
+};
+
 type ReporteCard = {
-    clientes: any[];
+    clientes: Cliente[];
     pdfUrl?: string;
     pdfName?: string;
 };
@@ -18,7 +24,7 @@ type ReporteCard = {
 export default function Reports() {
     const [isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [clientes, setClientes] = useState<any[]>([]);
+    const [clientes, setClientes] = useState<Cliente[]>([]);
     const [selectedClientes, setSelectedClientes] = useState<string[]>([]);
     const [reportes, setReportes] = useState<ReporteCard[]>([]);
 
@@ -141,7 +147,7 @@ export default function Reports() {
 
             // Actualizar lista de reportes
             setReportes(prev => prev.filter(r => r.pdfName !== pdfName));
-        } catch (err) {
+        } catch{
             // Puedes mostrar un toast/error aquí si lo deseas
         }
         setIsLoading(false);
