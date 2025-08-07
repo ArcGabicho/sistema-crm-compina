@@ -11,10 +11,24 @@ import { saveAs } from "file-saver";
 interface Cliente {
   id: string;
   nombre?: string;
+  nombres?: string;
+  apellidos?: string;
   empresa?: string;
+  razon_social?: string;
+  ruc?: string;
+  direccion?: string;
+  distrito?: string;
+  provincia?: string;
+  pagina_web?: string;
+  email?: string;
+  telefono?: string;
+  cargo?: string;
   etapa?: string;
   tipo_cliente?: string;
   fecha?: string;
+  medio_contacto?: string;
+  comentario?: string;
+  rubro?: string;
 }
 
 export default function Clients() {
@@ -32,10 +46,24 @@ export default function Clients() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [addForm, setAddForm] = useState<Partial<Cliente>>({
     nombre: "",
+    nombres: "",
+    apellidos: "",
     empresa: "",
+    razon_social: "",
+    ruc: "",
+    direccion: "",
+    distrito: "",
+    provincia: "",
+    pagina_web: "",
+    email: "",
+    telefono: "",
+    cargo: "",
     etapa: "",
     tipo_cliente: "",
     fecha: "",
+    medio_contacto: "",
+    comentario: "",
+    rubro: "",
   });
 
   const PAGE_SIZE = 10;
@@ -142,23 +170,51 @@ export default function Clients() {
     setShowAddModal(false);
     setAddForm({
       nombre: "",
+      nombres: "",
+      apellidos: "",
       empresa: "",
+      razon_social: "",
+      ruc: "",
+      direccion: "",
+      distrito: "",
+      provincia: "",
+      pagina_web: "",
+      email: "",
+      telefono: "",
+      cargo: "",
       etapa: "",
       tipo_cliente: "",
       fecha: "",
+      medio_contacto: "",
+      comentario: "",
+      rubro: "",
     });
   };
 
   // Exportar a Excel
   const handleExportarExcel = () => {
-    // Solo exporta los datos filtrados que se muestran en la tabla
+    // Exporta todos los campos de los datos filtrados
     const data = clientesFiltrados.map((c) => ({
       ID: c.id,
       Nombre: c.nombre || "",
+      Nombres: c.nombres || "",
+      Apellidos: c.apellidos || "",
       Empresa: c.empresa || "",
+      "Razón Social": c.razon_social || "",
+      RUC: c.ruc || "",
+      Dirección: c.direccion || "",
+      Distrito: c.distrito || "",
+      Provincia: c.provincia || "",
+      "Página Web": c.pagina_web || "",
+      Email: c.email || "",
+      Teléfono: c.telefono || "",
+      Cargo: c.cargo || "",
       Etapa: c.etapa || "",
-      Tipo: c.tipo_cliente || "",
+      "Tipo Cliente": c.tipo_cliente || "",
       Fecha: c.fecha || "",
+      "Medio Contacto": c.medio_contacto || "",
+      Comentario: c.comentario || "",
+      Rubro: c.rubro || "",
     }));
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
@@ -222,10 +278,24 @@ export default function Clients() {
               <tr>
                 <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">ID</th>
                 <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Nombre</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Nombres</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Apellidos</th>
                 <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Empresa</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Razón Social</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">RUC</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Dirección</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Distrito</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Provincia</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Página Web</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Email</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Teléfono</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Cargo</th>
                 <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Etapa</th>
-                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Tipo</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Tipo Cliente</th>
                 <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Fecha</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Medio Contacto</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Comentario</th>
+                <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Rubro</th>
                 <th className="p-3 text-left font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">Acciones</th>
               </tr>
             </thead>
@@ -239,10 +309,24 @@ export default function Clients() {
                 >
                   <td className="p-3 border-b border-gray-100 text-gray-900 font-mono">{cliente.id}</td>
                   <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.nombre || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.nombres || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.apellidos || "—"}</td>
                   <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.empresa || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.razon_social || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.ruc || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.direccion || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.distrito || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.provincia || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.pagina_web || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.email || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.telefono || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.cargo || "—"}</td>
                   <td className="p-3 border-b border-gray-100 text-gray-700">{cliente.etapa || "—"}</td>
                   <td className="p-3 border-b border-gray-100 text-gray-700">{cliente.tipo_cliente || "—"}</td>
                   <td className="p-3 border-b border-gray-100 text-gray-700">{cliente.fecha || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.medio_contacto || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.comentario || "—"}</td>
+                  <td className="p-3 border-b border-gray-100 text-gray-800">{cliente.rubro || "—"}</td>
                   <td className="p-3 border-b border-gray-100">
                     <div className="flex gap-2">
                       <button
@@ -307,52 +391,30 @@ export default function Clients() {
                 e.preventDefault();
                 handleGuardarEdicion();
               }}
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-4 max-h-[70vh] overflow-y-auto"
             >
-              <input
-                className="border p-2 rounded focus:ring-2 focus:ring-blue-200"
-                placeholder="Nombre"
-                value={editForm.nombre || ""}
-                onChange={e => setEditForm(f => ({ ...f, nombre: e.target.value }))}
-              />
-              <input
-                className="border p-2 rounded focus:ring-2 focus:ring-blue-200"
-                placeholder="Empresa"
-                value={editForm.empresa || ""}
-                onChange={e => setEditForm(f => ({ ...f, empresa: e.target.value }))}
-              />
-              <input
-                className="border p-2 rounded focus:ring-2 focus:ring-blue-200"
-                placeholder="Etapa"
-                value={editForm.etapa || ""}
-                onChange={e => setEditForm(f => ({ ...f, etapa: e.target.value }))}
-              />
-              <input
-                className="border p-2 rounded focus:ring-2 focus:ring-blue-200"
-                placeholder="Tipo de cliente"
-                value={editForm.tipo_cliente || ""}
-                onChange={e => setEditForm(f => ({ ...f, tipo_cliente: e.target.value }))}
-              />
-              <input
-                className="border p-2 rounded focus:ring-2 focus:ring-blue-200"
-                placeholder="Fecha"
-                value={editForm.fecha || ""}
-                onChange={e => setEditForm(f => ({ ...f, fecha: e.target.value }))}
-              />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Nombre" value={editForm.nombre || ""} onChange={e => setEditForm(f => ({ ...f, nombre: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Nombres" value={editForm.nombres || ""} onChange={e => setEditForm(f => ({ ...f, nombres: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Apellidos" value={editForm.apellidos || ""} onChange={e => setEditForm(f => ({ ...f, apellidos: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Empresa" value={editForm.empresa || ""} onChange={e => setEditForm(f => ({ ...f, empresa: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Razón Social" value={editForm.razon_social || ""} onChange={e => setEditForm(f => ({ ...f, razon_social: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="RUC" value={editForm.ruc || ""} onChange={e => setEditForm(f => ({ ...f, ruc: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Dirección" value={editForm.direccion || ""} onChange={e => setEditForm(f => ({ ...f, direccion: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Distrito" value={editForm.distrito || ""} onChange={e => setEditForm(f => ({ ...f, distrito: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Provincia" value={editForm.provincia || ""} onChange={e => setEditForm(f => ({ ...f, provincia: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Página Web" value={editForm.pagina_web || ""} onChange={e => setEditForm(f => ({ ...f, pagina_web: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Email" value={editForm.email || ""} onChange={e => setEditForm(f => ({ ...f, email: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Teléfono" value={editForm.telefono || ""} onChange={e => setEditForm(f => ({ ...f, telefono: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Cargo" value={editForm.cargo || ""} onChange={e => setEditForm(f => ({ ...f, cargo: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Etapa" value={editForm.etapa || ""} onChange={e => setEditForm(f => ({ ...f, etapa: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Tipo de cliente" value={editForm.tipo_cliente || ""} onChange={e => setEditForm(f => ({ ...f, tipo_cliente: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Fecha" value={editForm.fecha || ""} onChange={e => setEditForm(f => ({ ...f, fecha: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Medio de contacto" value={editForm.medio_contacto || ""} onChange={e => setEditForm(f => ({ ...f, medio_contacto: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Comentario" value={editForm.comentario || ""} onChange={e => setEditForm(f => ({ ...f, comentario: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-blue-200" placeholder="Rubro" value={editForm.rubro || ""} onChange={e => setEditForm(f => ({ ...f, rubro: e.target.value }))} />
               <div className="flex gap-2 mt-2 justify-end">
-                <button
-                  type="button"
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition"
-                  onClick={() => setEditCliente(null)}
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                >
-                  Guardar
-                </button>
+                <button type="button" className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition" onClick={() => setEditCliente(null)}>Cancelar</button>
+                <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">Guardar</button>
               </div>
             </form>
           </div>
@@ -380,53 +442,30 @@ export default function Clients() {
                 e.preventDefault();
                 handleAgregarCliente();
               }}
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-4 max-h-[70vh] overflow-y-auto"
             >
-              <input
-                className="border p-2 rounded focus:ring-2 focus:ring-green-200"
-                placeholder="Nombre"
-                value={addForm.nombre || ""}
-                onChange={e => setAddForm(f => ({ ...f, nombre: e.target.value }))}
-                required
-              />
-              <input
-                className="border p-2 rounded focus:ring-2 focus:ring-green-200"
-                placeholder="Empresa"
-                value={addForm.empresa || ""}
-                onChange={e => setAddForm(f => ({ ...f, empresa: e.target.value }))}
-              />
-              <input
-                className="border p-2 rounded focus:ring-2 focus:ring-green-200"
-                placeholder="Etapa"
-                value={addForm.etapa || ""}
-                onChange={e => setAddForm(f => ({ ...f, etapa: e.target.value }))}
-              />
-              <input
-                className="border p-2 rounded focus:ring-2 focus:ring-green-200"
-                placeholder="Tipo de cliente"
-                value={addForm.tipo_cliente || ""}
-                onChange={e => setAddForm(f => ({ ...f, tipo_cliente: e.target.value }))}
-              />
-              <input
-                className="border p-2 rounded focus:ring-2 focus:ring-green-200"
-                placeholder="Fecha"
-                value={addForm.fecha || ""}
-                onChange={e => setAddForm(f => ({ ...f, fecha: e.target.value }))}
-              />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Nombre" value={addForm.nombre || ""} onChange={e => setAddForm(f => ({ ...f, nombre: e.target.value }))} required />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Nombres" value={addForm.nombres || ""} onChange={e => setAddForm(f => ({ ...f, nombres: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Apellidos" value={addForm.apellidos || ""} onChange={e => setAddForm(f => ({ ...f, apellidos: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Empresa" value={addForm.empresa || ""} onChange={e => setAddForm(f => ({ ...f, empresa: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Razón Social" value={addForm.razon_social || ""} onChange={e => setAddForm(f => ({ ...f, razon_social: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="RUC" value={addForm.ruc || ""} onChange={e => setAddForm(f => ({ ...f, ruc: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Dirección" value={addForm.direccion || ""} onChange={e => setAddForm(f => ({ ...f, direccion: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Distrito" value={addForm.distrito || ""} onChange={e => setAddForm(f => ({ ...f, distrito: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Provincia" value={addForm.provincia || ""} onChange={e => setAddForm(f => ({ ...f, provincia: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Página Web" value={addForm.pagina_web || ""} onChange={e => setAddForm(f => ({ ...f, pagina_web: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Email" value={addForm.email || ""} onChange={e => setAddForm(f => ({ ...f, email: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Teléfono" value={addForm.telefono || ""} onChange={e => setAddForm(f => ({ ...f, telefono: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Cargo" value={addForm.cargo || ""} onChange={e => setAddForm(f => ({ ...f, cargo: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Etapa" value={addForm.etapa || ""} onChange={e => setAddForm(f => ({ ...f, etapa: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Tipo de cliente" value={addForm.tipo_cliente || ""} onChange={e => setAddForm(f => ({ ...f, tipo_cliente: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Fecha" value={addForm.fecha || ""} onChange={e => setAddForm(f => ({ ...f, fecha: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Medio de contacto" value={addForm.medio_contacto || ""} onChange={e => setAddForm(f => ({ ...f, medio_contacto: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Comentario" value={addForm.comentario || ""} onChange={e => setAddForm(f => ({ ...f, comentario: e.target.value }))} />
+              <input className="border p-2 rounded focus:ring-2 focus:ring-green-200" placeholder="Rubro" value={addForm.rubro || ""} onChange={e => setAddForm(f => ({ ...f, rubro: e.target.value }))} />
               <div className="flex gap-2 mt-2 justify-end">
-                <button
-                  type="button"
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition"
-                  onClick={() => setShowAddModal(false)}
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
-                >
-                  Guardar
-                </button>
+                <button type="button" className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition" onClick={() => setShowAddModal(false)}>Cancelar</button>
+                <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">Guardar</button>
               </div>
             </form>
           </div>

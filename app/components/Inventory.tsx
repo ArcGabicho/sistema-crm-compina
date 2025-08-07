@@ -1,4 +1,4 @@
-export default function Data(){
+export default function Inventory(){
     return (
         <>
         
