@@ -7,7 +7,6 @@ import Inicio from "../components/Home";
 import Clientes from "../components/Clients";
 import Reports from "../components/Reports";
 import Inventory from "../components/Inventory";
-import RPA from "../components/RPA";
 import Autor from "../components/Author";
 
 export default function DashboardPage() {
@@ -23,8 +22,6 @@ export default function DashboardPage() {
                 return <Reports />;
             case "inventario":
                 return <Inventory />;
-            case "automatizacion":
-                return <RPA />;
             case "autor":
                 return <Autor />;
             default:

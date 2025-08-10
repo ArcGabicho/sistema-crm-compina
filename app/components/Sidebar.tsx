@@ -9,7 +9,6 @@ import { House } from 'lucide-react';
 import { Users } from 'lucide-react';
 import { ClipboardMinus } from 'lucide-react';
 import { Package2 } from 'lucide-react';
-import { Bot } from 'lucide-react';
 import { Info } from 'lucide-react';
 import { LogOut } from 'lucide-react';
 import { LoaderCircle } from "lucide-react";
@@ -26,7 +25,6 @@ const navItems = [
     { key: "clientes", icon: <Users />, label: "Clientes" },
     { key: "reportes", icon: <ClipboardMinus />, label: "Reportes" },
     { key: "inventario", icon: <Package2 />, label: "Inventario" },
-    { key: "automatizacion", icon: <Bot />, label: "Automatización" },
     { key: "autor", icon: <Info />, label: "Autor" },
 ];
 
