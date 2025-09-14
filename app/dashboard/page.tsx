@@ -33,7 +33,7 @@ export default function DashboardPage() {
         <section className="flex min-h-screen max-h-screen overflow-hidden bg-gradient-to-br from-yellow-50 via-white to-gray-100">
             <Sidebar onSelectModulo={setModulo} />
             <div className="flex-1 flex flex-col items-center justify-start py-4 px-4 md:py-12 md:px-8 overflow-hidden pb-20 md:pb-0">
-                <div className="w-full bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-8 h-full overflow-hidden">
+                <div className="w-full bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-8 h-full overflow-scroll md:overflow-hidden">
                     {renderModulo()}
                 </div>
             </div>
