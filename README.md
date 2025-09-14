@@ -1,4 +1,6 @@
-# 🧠 CRM – Compina S.A.C.
+# 🧠 Sistema CRM – Compina S.A.C.
+
+![Portada](https://media.licdn.com/dms/image/v2/D4E2DAQHAca4_vKVhYQ/profile-treasury-image-shrink_800_800/B4EZiEFlbKHEAY-/0/1754562714774?e=1758441600&v=beta&t=_uwCIhOzFG5jk4wFz1W9Vq5ZyXNijr3Ivln3t0bEy0g)
 
 **CRM Compina** es un sistema de gestión de relaciones con clientes (Customer Relationship Management) desarrollado especialmente para **Compina S.A.C.**, una agencia de marketing peruana con enfoque en campañas digitales, fidelización y automatización comercial.
 
@@ -8,14 +10,14 @@ Desarrollado con **Next.js** y **Firebase**, este sistema permite a los asesores
 
 ## 🚀 Características principales
 
-- 👤 Gestión avanzada de clientes (alta, edición, seguimiento, historial)
-- 📈 Visualización de KPIs comerciales y actividad por cliente
-- 🔔 Notificaciones de tareas, recordatorios y seguimientos
-- 🗓️ Calendario integrado para gestión de campañas y citas
-- 🔍 Buscador rápido y filtros inteligentes
-- 🔒 Acceso con autenticación segura (Firebase Auth)
-- 🔄 Sincronización en tiempo real con **Cloud Firestore**
-- 🌐 Acceso web multiplataforma y responsive
+- 👤 **Gestión masiva de clientes:** Administra más de 6,000 clientes en tiempo real con acceso instantáneo a sus datos.
+- 📊 **KPIs y estado de clientes:** Recopila y visualiza indicadores clave de desempeño y el estado actualizado de cada cliente.
+- 🔍 **Buscador inteligente y filtros avanzados:** Encuentra clientes rápidamente y segmenta la información con filtros dinámicos.
+- 📝 **Generación automática de reportes PDF:** Crea reportes personalizados en PDF con un solo clic.
+- 📦 **Inventario conectado vía API Go:** Mapea y sincroniza el inventario en tiempo real gracias a la integración con una API desarrollada en Go.
+- 🔒 **Autenticación segura:** Acceso protegido y gestión de usuarios mediante **Firebase Auth**.
+- 🔄 **Sincronización instantánea:** Actualización de datos en tiempo real con **Firebase Firestore**.
+- 🌐 **Acceso multiplataforma y diseño responsive:** Utiliza el sistema desde cualquier dispositivo, adaptado para escritorio y móvil.
 
 ---
 
@@ -52,7 +54,7 @@ Desarrollado con **Next.js** y **Firebase**, este sistema permite a los asesores
 ## 🔧 Instalación del Proyecto
 
 ```bash
-git clone https://github.com/compina-sac/crm-compina.git
+git clone https://github.com/ArcGabicho/sistema-crm-compina.git
 ```
 
 ```bash
@@ -76,4 +78,5 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=TU_PROJECT_ID
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=TU_STORAGE_BUCKET
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=TU_SENDER_ID
 NEXT_PUBLIC_FIREBASE_APP_ID=TU_APP_ID
+NEXT_PUBLIC_API_URL=URL_API_PRODUCTOS
 ```
